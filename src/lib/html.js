@@ -1,3 +1,5 @@
+import { join } from "path";
+
 function template(title, content) {
   return `<!doctype html>
     <html lang="is">
@@ -29,4 +31,29 @@ function index(results) {
 
 export function indexTemplate(results) {
   return template("Námsskrá", index(results));
+}
+
+export function info(result, title) {
+  const headersHtml = result.headers.map((val) => `<th>${val}</th>`).join("\n");
+
+  const infoHtml = result.courses.map((val) => `<td>${val}</td>`).join("\n");
+
+  return `<article>
+    <h1>${title}</h2>
+    <section>
+    <table>
+    <tr>
+    ${headersHtml}
+    </tr>
+    <tr>
+    ${infoHtml}
+    </tr>
+    </table>
+    </section>
+    <p><a href="/">Til baka</a></p>
+  </article>`;
+}
+
+export function infoTemplate(title, result) {
+  return template(title, info(result, title));
 }
