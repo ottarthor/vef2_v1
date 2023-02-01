@@ -14,25 +14,34 @@ export function parse(input) {
 
   const courses = [];
 
-  for (let i = 1; i < lines.length; i += 1) {
-    const info = lines[i].split(";");
-    // skoða ehv skilyrði
-    const num = info[0];
-    const title = info[1];
-    const unit = info[2];
-    const sem = info[3];
-    const lev = info[4];
-    const link = info[5];
+  if (lines.length > 50) {
+    for (let i = 1; i < lines.length - 1; i += 1) {
+      const info = lines[i].split(";");
+      // skoða ehv skilyrði
+      const num = info[0];
+      const title = info[1];
+      let unit = info[2];
+      let sem = info[3];
+      const lev = info[4];
+      const link = info[5];
 
-    const course = {
-      num,
-      title,
-      unit,
-      sem,
-      lev,
-      link,
-    };
-    courses.push(course);
+      console.log(unit, sem);
+      if (Number.isNaN(parseInt(10, unit))) {
+        unit = info[3];
+        sem = info[2];
+        console.log(unit, sem);
+      }
+
+      const course = {
+        num,
+        title,
+        unit,
+        sem,
+        lev,
+        link,
+      };
+      courses.push(course);
+    }
   }
 
   const major = {

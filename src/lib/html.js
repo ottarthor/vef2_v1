@@ -1,4 +1,4 @@
-let headers = [];
+let header = [];
 
 function template(title, content) {
   return `<!doctype html>
@@ -36,11 +36,14 @@ export function indexTemplate(results) {
 export function info(result, title) {
   let courseHtml = "";
   let headersHtml = [];
-  if (result === null) {
-    headersHtml = headers;
+
+  if (!result.courses) {
+    headersHtml = header;
+  } else if (result.courses.length === 0) {
+    headersHtml = header;
   } else {
     headersHtml = result.headers.map((val) => `<th>${val}</th>`).join("\n");
-    headers = headersHtml;
+    header = headersHtml;
   }
 
   for (const c in result.courses) {

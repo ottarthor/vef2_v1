@@ -35,6 +35,16 @@ async function main() {
 
       // eslint-disable-next-line no-await-in-loop
       await writeFile(filepath, template, { flag: "w+" });
+    } else {
+      const information = [];
+      const template = infoTemplate(title, information);
+
+      const name = path.basename(csv);
+      const fn = `${name}.html`;
+      const filepath = join(OUTPUT_DIR, fn);
+
+      // eslint-disable-next-line no-await-in-loop
+      await writeFile(filepath, template, { flag: "w+" });
     }
   }
   const filepath = join(OUTPUT_DIR, "index.html");
