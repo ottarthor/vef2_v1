@@ -14,31 +14,30 @@ export function parse(input) {
 
   const courses = [];
 
-  for (let i = 1; i < lines.length; i++) {
-    let info = lines[i].split(";");
-    //skoða ehv skilyrði
-    let num = info[0];
-    let title = info[1];
-    let unit = info[2];
-    let sem = info[3];
-    let lev = info[4];
-    let link = info[5];
+  for (let i = 1; i < lines.length; i += 1) {
+    const info = lines[i].split(";");
+    // skoða ehv skilyrði
+    const num = info[0];
+    const title = info[1];
+    const unit = info[2];
+    const sem = info[3];
+    const lev = info[4];
+    const link = info[5];
 
-    let course = {
-      num: num,
-      title: title,
-      unit: unit,
-      sem: sem,
-      lev: lev,
-      link: link,
+    const course = {
+      num,
+      title,
+      unit,
+      sem,
+      lev,
+      link,
     };
     courses.push(course);
   }
 
   const major = {
-    headers: headers,
-    courses: courses,
+    headers,
+    courses,
   };
-  console.log(major.courses);
   return major;
 }

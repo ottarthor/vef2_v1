@@ -1,5 +1,4 @@
-import { readdir, readFile as fsReadFile, stat } from "fs/promises";
-import { join } from "path";
+import { readFile as fsReadFile, stat } from "fs/promises";
 
 /**
  * Check if a directory exists.
@@ -13,36 +12,6 @@ export async function direxists(dir) {
   } catch (e) {
     return false;
   }
-}
-
-/**
- * Read only files from a directory and returns as an array.
- * @param {string} dir Directory to read files from
- * @returns {string[]} Array of files in dir with full path, empty if error or no files
- */
-export async function readFilesFromDir(dir) {
-  let files = [];
-  try {
-    files = await readdir(dir);
-  } catch (e) {
-    return [];
-  }
-
-  const mapped = files.map(async (file) => {
-    const path = join(dir, file);
-    const info = await stat(path);
-
-    if (info.isDirectory()) {
-      return null;
-    }
-
-    return path;
-  });
-
-  const resolved = await Promise.all(mapped);
-
-  // Remove any directories that will be represented by `null`
-  return resolved.filter(Boolean);
 }
 
 /**

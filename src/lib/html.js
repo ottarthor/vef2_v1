@@ -1,5 +1,3 @@
-import { join } from "path";
-
 function template(title, content) {
   return `<!doctype html>
     <html lang="is">
@@ -17,14 +15,14 @@ function index(results) {
     .map(
       (result) => `
     <li>
-      <a href="${result.filename}">${result.title}</a>
+      <a href="${result.csv}.html">${result.title}</a>
       <p>${result.description}</p>
     </li>`
     )
     .join("\n");
 
-  return `<section>
-      <h1>Námsskrá</h1>
+  return `<h1>Námsskrá</h1>
+    <section class="options">
       <ul>${list}</ul>
     </section>`;
 }
@@ -36,21 +34,32 @@ export function indexTemplate(results) {
 export function info(result, title) {
   const headersHtml = result.headers.map((val) => `<th>${val}</th>`).join("\n");
 
-  const infoHtml = result.courses.map((val) => `<td>${val}</td>`).join("\n");
+  let courseHtml = "";
+  for (const c in result.courses) {
+    if (c !== undefined) {
+      courseHtml = courseHtml.concat("<tr>");
+      courseHtml = courseHtml.concat("\n");
+      const i = Object.values(result.courses[c]);
+      // eslint-disable-next-line no-loop-func, no-return-assign
+      i.forEach((stat) => (courseHtml = courseHtml.concat(`<td>${stat}</td>`)));
+      courseHtml = courseHtml.concat("\n");
+      courseHtml = courseHtml.concat("</tr>");
+    }
+  }
 
   return `<article>
     <h1>${title}</h2>
-    <section>
-    <table>
-    <tr>
-    ${headersHtml}
-    </tr>
-    <tr>
-    ${infoHtml}
-    </tr>
-    </table>
-    </section>
-    <p><a href="/">Til baka</a></p>
+        <section>
+            <table>
+                <tr>
+                    ${headersHtml}
+                </tr>
+                <tr>
+                    ${courseHtml}
+                </tr>
+            </table>
+        </section>
+        <p><a href="/">Til baka</a></p>
   </article>`;
 }
 
