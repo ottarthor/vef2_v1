@@ -5,12 +5,12 @@
  */
 export function parse(input) {
   if (typeof input !== "string") {
-    return [];
+    return { courses: [], headers: [] };
   }
 
   const lines = input.split("\n");
 
-  const headers = lines[0].split(";");
+  let headers = lines[0].split(";");
 
   const courses = [];
 
@@ -20,17 +20,16 @@ export function parse(input) {
       // skoða ehv skilyrði
       const num = info[0];
       const title = info[1];
-      let unit = info[2];
-      let sem = info[3];
+      const unit = info[2];
+      const sem = info[3];
       const lev = info[4];
       const link = info[5];
 
-      console.log(unit, sem);
-      if (Number.isNaN(parseInt(10, unit))) {
-        unit = info[3];
-        sem = info[2];
-        console.log(unit, sem);
+      /* if (Number.isNaN(parseInt(10, unit))) {
+        unit = "prump";
+        sem = "plast";
       }
+      */
 
       const course = {
         num,
@@ -42,6 +41,8 @@ export function parse(input) {
       };
       courses.push(course);
     }
+  } else {
+    headers = [];
   }
 
   const major = {

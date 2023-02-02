@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/ottarthor/vef2_v1#readme",
   "devDependencies": {
-    "@jest/globals": "^27.4.6",
+    "@jest/globals": "^27.5.1",
     "browser-sync": "^2.27.5",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.7.0",
