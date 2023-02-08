@@ -6,7 +6,7 @@ function template(title, content) {
       <head>
         <meta charset="utf-8">
         <title>${title}</title>
-        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="./public/styles.css">
       </head>
       <body>${content}</body>
     </html>`;
